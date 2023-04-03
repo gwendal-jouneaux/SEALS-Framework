@@ -20,12 +20,14 @@ public class ModuleRegistry {
 	
 	public final void register(SelfAdaptationModule<?, ?, ?> module) {
 		Class<? extends AdaptableNode<?>> clazz = module.getTargetNodeClass();
-		List<SelfAdaptationModule<?, ?, ?>> clazzModules = modulesByNodeType.get(clazz);
-		if(clazzModules == null) {
-			clazzModules = new ArrayList<SelfAdaptationModule<?, ?, ?>>();
-			modulesByNodeType.put(clazz, clazzModules);
+		if(clazz != null){
+			List<SelfAdaptationModule<?, ?, ?>> clazzModules = modulesByNodeType.get(clazz);
+			if(clazzModules == null) {
+				clazzModules = new ArrayList<SelfAdaptationModule<?, ?, ?>>();
+				modulesByNodeType.put(clazz, clazzModules);
+			}
+			clazzModules.add(module);
 		}
-		clazzModules.add(module);
 		modules.add(module);
 	}
 
